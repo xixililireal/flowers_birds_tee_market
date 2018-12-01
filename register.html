@@ -1,0 +1,52 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>用户注册页面</title>
+    <style>
+      .move{text-align:right;}
+      #reg{width:265px;margin-left: 0px;margin-top:0px;}
+      table{height:450px;padding-top:3px;}
+      input{height:30px;font-size:18px;}
+      span{font-size:10px;}
+    </style>
+  </head>
+  <body>
+    <form action="">
+      <table >
+          <tr>
+              <td><h4>新用户注册</h4></td><td class="move"><a href="./login.html">直接登录</a></td>
+          </tr>
+          <tr>
+              <td class="move"><label>用户名：</label></td>
+              <td><input type="text" placeholder="请输入您的用户名" id="uname" maxlength="9" onblur="uname_blur()" onfocus="uname_focus()" title="请填写此字段"></td>
+              <td><span id="tipsUname"></span></td>
+          </tr>
+          <tr>
+              <td class="move"><label>登录密码：</label></td>
+              <td><input type="password" placeholder="请输入您的登录密码" id="upwd" maxlength="16" onblur="upwd_blur()" onfocus="upwd_focus()" title="请填写此字段"></td>
+             <td> <span id="tipsUpwd"></span></td>
+          </tr>
+          <tr>
+              <td class="move"><label>确认密码：</label></td>
+             <td> <input type="password" placeholder="请确认密码" id="u_pwd" maxlength="16" onblur="pwd_blur()" onfocus="pwd_focus()" title="请填写此字段"></td>
+              <td><span id="tips_upwd"></span></td>
+          </tr>
+          <tr>
+             <td class="move"><label>邮箱：</label></td>
+             <td> <input type="email" placeholder="请输入邮箱地址" id="email" title="请填写此字段" onblur="email_blur()" onfocus="email_focus()"></td>
+             <td> <span id="tipsEmail"></span></td>
+          </tr>
+          <tr>
+             <td class="move"><label>手机号：</label></td>
+             <td> <input type="phone" placeholder="请输入您的手机号" id="phone" maxlength="11" onblur="phone_blur()" onfocus="phone_focus()" title="请填写此字段"></td>
+             <td> <span id="tipsPhone"></span></td>
+          </tr>
+          <tr>
+              <td colspan="3" ><input type="button" value="提交注册信息" onclick="user_register()" id="reg"></td>
+          </tr>
+        </table>
+    </form>
+    <script src="./js/register.js"></script>
+  </body>
+</html>
