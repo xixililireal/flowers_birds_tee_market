@@ -1,0 +1,85 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>用户更新</title>
+    <style>
+      #image{width:100px;}
+    </style>
+  </head>
+<!--   <input type="file" id="avatar"> -->
+  <body onload="update()">
+    <div><p><span>用户名称：</span><input type="text" id="uname"></p></div>
+    <div><p><span>登录密码：</span><input type="password" id="upwd"></p></div>
+    <div><p>用户邮箱：<input type="email" id="email"></p></div>
+    <div><p>用户手机：<input type="text" id="phone"></p></div>
+    <div><p>用户头像：<span id="image"></span><input type="file" id="avatar"></p></div>
+    <div><p>用户真名：<input type="text" id="userName"></p></div>
+    <div>
+      <p>用户性别：
+        <select name="" id="gender">
+          <option value="1" id="man">男</option>
+          <option value="0" id="woman" >女</option>
+          <option value="2" id="un">保密</option>
+        </select>
+      </p>
+    </div>
+    <div><input type="button" value="修改信息" onclick="updateuser()" ></div>
+    <div><input type="hidden" id="get_id"></div>
+    <script>
+      function update(){
+          var urlParams= new URLSearchParams(location.search);
+          var uid=urlParams.get("uid");
+          get_id.value=uid;
+          var xhr=new XMLHttpRequest();
+          xhr.onreadystatechange=function(){
+              if(xhr.readyState==4&&xhr.status==200){
+                  var res=xhr.responseText;
+                  if(res.length>0){
+                      var arr=JSON.parse(res);
+                      uname.value=arr[0].uname;
+                      upwd.value=arr[0].upwd;
+                      email.value=arr[0].email;
+                      phone.value=arr[0].phone;
+                      var str="";
+                      str=arr[0].avatar;
+                      console.log(str);
+                      image.innerHTML=str;
+//                      avatar.value=str;
+                      userName.value=arr[0].userName;
+                      if(arr[0].gender==1){
+                          man.selected=true;
+                      }else if(arr[0].gender==0){
+                          woman.selected=true;
+                      }else if(arr[0].gender==null){
+                            un.selected=true;
+                      }
+                  }else{
+                      alert("获取数据失败...");
+                  }
+              }
+          }
+          xhr.open("get","/user/update?uid="+uid,true);
+          xhr.send(null);
+      }
+      function updateuser(){
+          var xhr =new XMLHttpRequest();
+          xhr.onreadystatechange=function(){
+              if(xhr.readyState==4&&xhr.status==200){
+                  var res=xhr.responseText;
+                  if(res=="1"){
+                     alert("修改成功");
+                     self.location.href="./user_list.html";
+                  }else if(res=="0"){
+                     alert("修改失败");
+                  }
+              }
+          }
+          xhr.open("post","/user/updateUser",true);
+          xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+          var data="uname="+uname.value+"&upwd="+upwd.value+"&email="+email.value+"&phone="+phone.value+"&userName="+userName.value+"&gender="+gender.value+"&uid="+get_id.value;
+          xhr.send(data);
+      }
+    </script>
+  </body>
+</html>
