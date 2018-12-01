@@ -1,0 +1,406 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>用户列表</title>
+    <style>
+      #hidden{
+          width:100%; height:100%;
+	        position:absolute; top:0; left:0;
+	        display:none;
+      }
+      #hidden>div{
+          width:100%; height:100%;
+	        background-color:#555; opacity:.5;
+      }
+      #hidden>p{
+        width:300px; height:240px;
+	      border:1px solid #edcf72;
+	      line-height:1.6em; 
+      	background-color:#fff; border-radius:10px;
+	      position:absolute; top:50%; left:50%;
+	      margin-top:-135px; margin-left:-150px;
+      }
+      #hidden>label{text-align:right;}
+      #hidden p input{width:200px;background:gray;font-size:20px;margin-left:50px;}
+   
+    </style>
+  </head>
+  <body onload="user_info()">
+     <form action="">
+        <table border="1px">
+          <caption>用户信息表</caption> 
+          <thead>
+            <tr>
+              <th>用户编号</th>
+              <th>用户登录名</th>
+              <th>用户登录密码</th>
+              <th>用户邮箱</th>
+              <th>用户手机</th>
+              <th>用户头像</th>
+              <th>用户真名</th>
+              <th>用户性别</th>
+              <th>用户操作</th>
+            </tr>
+         </thead>
+          
+          <tbody id="info"></tbody>
+          <tfoot>
+            <tr>
+              <td colspan="5" align="right">
+                <input type="button" value="首页" onclick="firstpage()">
+                <input type="button" value="上一页" onclick="previouspage()">
+               <span id="num"></span>
+                <input type="button" value="下一页" onclick="nextpage()">
+                <input type="button" value="末页" onclick="lastpage()">
+              </td>
+<!--               <td>上一页</td> -->
+<!--               <td>1/10</td> -->
+<!--               <td>下一页</td> -->
+<!--               <td>末页</td> -->
+            </tr>
+          </tfoot>
+        </table>
+     </form>
+     <div id="hidden">
+      <div></div>
+      <p>
+        <label>用户编号：</label><span id="h_uid"></span><br>
+        <label>用户名称：</label><span id="uname"></span><br>
+        <label>登录密码：</label><span id="upwd"></span><br>
+        <label>用户邮箱：</label><span id="email"></span><br>
+        <label>用户手机：</label><span id="phone"></span><br>
+        <label>用户头像：</label><span id="avatar"></span><br>
+        <label>真实姓名：</label><span id="userName"></span><br>
+        <label>用户性别：</label><span id="gender"></span><br>
+        <input type="button" value="确认" onclick="hid()">  
+      </p>
+    </div>
+     <script>
+        var pno=1;
+        var count=2;
+        var a;
+        var endPage;
+        function user_info(){
+            var xhr=new XMLHttpRequest();
+            xhr.onreadystatechange=function(){
+                if(xhr.readyState==4&&xhr.status==200){
+                    var res=xhr.responseText;
+                    console.log(res);
+                    var arr=JSON.parse(res);
+
+                    if(res.length>0){
+                     
+                      var cont="";
+                      for(var i=0;i<arr.length;i++){
+                        var gender;
+                        if(arr[i].gender==1){
+                            gender="男";
+                        }else if(arr[i].gender==0){
+                            gender="女";
+                        }else{
+                            gender="不详";
+                        }
+                        cont+="<tr>";
+                        cont+="<td>"+arr[i].uid+"</td>"+"<td>"+arr[i].uname+"</td>"+"<td>"+arr[i].upwd+"<td>"+arr[i].email+"</td>"+"<td>"+arr[i].phone+"</td>"+"<td>"+arr[i].avatar+"</td>"+"<td>"+arr[i].userName+"</td>"+"<td>"+gender+"</td>";
+                        cont+="<td>"+"<a href='javascript:show("+arr[i].uid+")'>详情</a>&nbsp;&nbsp;&nbsp;"+"<a href='javascript:deleteUser("+arr[i].uid+")'>删除</a>&nbsp;&nbsp;&nbsp;"+"<a href='./user_update.html?uid="+arr[i].uid+"'>更新</a>"+"</td>";
+                        cont+="</tr>";
+                      }
+                    }else{
+                        alert("获取信息失败...");
+                    }
+                  info.innerHTML=cont;
+                }
+            }
+            xhr.open("get","/user/list",true);
+            xhr.send(null);
+            a=info.innerHTML;
+        }
+        console.log(a);
+   
+// 首页
+               function firstpage(){
+                    
+                    pno=1;
+                    var startPage=(pno-1)*count;
+                    var xhr=new XMLHttpRequest();
+                    xhr.onreadystatechange=function(){
+                      if(xhr.readyState==4&&xhr.status==200){
+                         var res=xhr.responseText;
+                         if(res.length>0){
+                                var arr=JSON.parse(res);
+                                var cont="";
+                                for(var i=0;i<arr.length;i++){
+                                  var gender;
+                                  if(arr[i].gender==1){
+                                      gender="男";
+                                  }else if(arr[i].gender==0){
+                                      gender="女";
+                                  }else{
+                                      gender="不详";
+                                  }
+                                  cont+="<tr>";
+                                  cont+="<td>"+arr[i].uid+"</td>"+"<td>"+arr[i].uname+"</td>"+"<td>"+arr[i].upwd+"<td>"+arr[i].email+"</td>"+"<td>"+arr[i].phone+"</td>"+"<td>"+arr[i].avatar+"</td>"+"<td>"+arr[i].userName+"</td>"+"<td>"+gender+"</td>";
+                                  cont+="<td>"+"<a href='javascript:show("+arr[i].uid+")'>详情</a>&nbsp;&nbsp;&nbsp;"+"<a href='javascript:deleteUser("+arr[i].uid+")'>删除</a>&nbsp;&nbsp;&nbsp;"+"<a href='./user_update.html?uid="+arr[i].uid+"'>更新</a>"+"</td>";
+                                  cont+="</tr>";
+                                }
+                              }else{
+                                  alert("获取信息失败...");
+                              }
+                            info.innerHTML=cont; 
+                      }
+                      num.innerHTML=pno;
+                    }
+                    xhr.open("post","/user/paging",true);
+                    xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+                    var data="pno="+startPage+"&count="+count;
+                    xhr.send(data);
+                } 
+
+            
+// 下一页
+               function nextpage(){
+                 if(info.innerHTML==''){
+                   num.innerHTML=pno;
+                   return;
+                 }
+                 pno++;
+                 var startPage=(pno-1)*count;
+                  var xhr=new XMLHttpRequest();
+                    xhr.onreadystatechange=function(){
+                      if(xhr.readyState==4&&xhr.status==200){
+                         var res=xhr.responseText;
+                         if(res.length>0){
+                                var arr=JSON.parse(res);
+                                var cont="";
+                                for(var i=0;i<arr.length;i++){
+                                  var gender;
+                                  if(arr[i].gender==1){
+                                      gender="男";
+                                  }else if(arr[i].gender==0){
+                                      gender="女";
+                                  }else{
+                                      gender="不详";
+                                  }
+                                  cont+="<tr>";
+                                  cont+="<td>"+arr[i].uid+"</td>"+"<td>"+arr[i].uname+"</td>"+"<td>"+arr[i].upwd+"<td>"+arr[i].email+"</td>"+"<td>"+arr[i].phone+"</td>"+"<td>"+arr[i].avatar+"</td>"+"<td>"+arr[i].userName+"</td>"+"<td>"+gender+"</td>";
+                                  cont+="<td>"+"<a href='javascript:show("+arr[i].uid+")'>详情</a>&nbsp;&nbsp;&nbsp;"+"<a href='javascript:deleteUser("+arr[i].uid+")'>删除</a>&nbsp;&nbsp;&nbsp;"+"<a href='./user_update.html?uid="+arr[i].uid+"'>更新</a>"+"</td>";
+                                  cont+="</tr>";
+                                }
+                                num.innerHTML=pno;
+                              }else{
+                                  alert("获取信息失败...");
+                              }
+                            info.innerHTML=cont; 
+                      }
+                      
+                    }
+                    xhr.open("post","/user/paging",true);
+                    xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+                    var data="pno="+startPage+"&count="+count;
+                    xhr.send(data);
+                  }
+// 上一页
+              function previouspage(){
+                 if(pno==1){
+                   num.innerHTML=pno;
+                   return;
+                 }
+                 pno--;
+                 var startPage=(pno-1)*count;
+                  var xhr=new XMLHttpRequest();
+                    xhr.onreadystatechange=function(){
+                      if(xhr.readyState==4&&xhr.status==200){
+                         var res=xhr.responseText;
+                         if(res.length>0){
+                                var arr=JSON.parse(res);
+                                var cont="";
+                                for(var i=0;i<arr.length;i++){
+                                  var gender;
+                                  if(arr[i].gender==1){
+                                      gender="男";
+                                  }else if(arr[i].gender==0){
+                                      gender="女";
+                                  }else{
+                                      gender="不详";
+                                  }
+                                  cont+="<tr>";
+                                  cont+="<td>"+arr[i].uid+"</td>"+"<td>"+arr[i].uname+"</td>"+"<td>"+arr[i].upwd+"<td>"+arr[i].email+"</td>"+"<td>"+arr[i].phone+"</td>"+"<td>"+arr[i].avatar+"</td>"+"<td>"+arr[i].userName+"</td>"+"<td>"+gender+"</td>";
+                                  cont+="<td>"+"<a href='javascript:show("+arr[i].uid+")'>详情</a>&nbsp;&nbsp;&nbsp;"+"<a href='javascript:deleteUser("+arr[i].uid+")'>删除</a>&nbsp;&nbsp;&nbsp;"+"<a href='./user_update.html?uid="+arr[i].uid+"'>更新</a>"+"</td>";
+                                  cont+="</tr>";
+                                }
+                                num.innerHTML=pno;
+                              }else{
+                                  alert("获取信息失败...");
+                              }
+                            info.innerHTML=cont; 
+                      }
+                      
+                    }
+                    xhr.open("post","/user/paging",true);
+                    xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+                    var data="pno="+startPage+"&count="+count;
+                    xhr.send(data);            
+              }
+// 末页
+//              var a=info.innerHTML;
+//              console.log(a);
+//              a=a.split("</tr>");
+//              console.log(a);
+//              var b=parseInt((a.length-1)/count);
+              function lastpage(){
+                  //console.log(info.innerHTML);
+                 
+                  if(a.length-1>count){
+                    num.innerHTML=pno;
+                    return;
+                  }
+                  pno=parseInt((a.length-1)/count);
+                  var startPage=(pno-1)*count;
+                  var xhr=new XMLHttpRequest();
+                    xhr.onreadystatechange=function(){
+                      if(xhr.readyState==4&&xhr.status==200){
+                         var res=xhr.responseText;
+                         if(res.length>0){
+                                var arr=JSON.parse(res);
+                                var cont="";
+                                for(var i=0;i<arr.length;i++){
+                                  var gender;
+                                  if(arr[i].gender==1){
+                                      gender="男";
+                                  }else if(arr[i].gender==0){
+                                      gender="女";
+                                  }else{
+                                      gender="不详";
+                                  }
+                                  cont+="<tr>";
+                                  cont+="<td>"+arr[i].uid+"</td>"+"<td>"+arr[i].uname+"</td>"+"<td>"+arr[i].upwd+"<td>"+arr[i].email+"</td>"+"<td>"+arr[i].phone+"</td>"+"<td>"+arr[i].avatar+"</td>"+"<td>"+arr[i].userName+"</td>"+"<td>"+gender+"</td>";
+                                  cont+="<td>"+"<a href='javascript:show("+arr[i].uid+")'>详情</a>&nbsp;&nbsp;&nbsp;"+"<a href='javascript:deleteUser("+arr[i].uid+")'>删除</a>&nbsp;&nbsp;&nbsp;"+"<a href='./user_update.html?uid="+arr[i].uid+"'>更新</a>"+"</td>";
+                                  cont+="</tr>";
+                                }
+                                num.innerHTML=pno;
+                              }else{
+                                  alert("获取信息失败...");
+                              }
+                            info.innerHTML=cont; 
+                      }
+                      
+                    }
+                    xhr.open("post","/user/paging",true);
+                    xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+                    var data="pno="+startPage+"&count="+count;
+                    xhr.send(data); 
+              }
+
+        // 删除用户
+        function deleteUser(uid){
+            var xhr=new XMLHttpRequest();
+            xhr.onreadystatechange=function(){
+                if(xhr.readyState==4&&xhr.status==200){
+                    var res=xhr.responseText;
+                    if(res=="1"){
+                        alert("删除成功");
+                        user_info();
+                    }else if(res=="0"){
+                        alert("删除失败");
+                        user_info();
+                    }
+                }
+            }
+            xhr.open("post","/user/delete_user",true);
+            xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+            var data="uid="+uid;
+            xhr.send(data);
+        }
+        // 查看详情
+        function show(uid){
+          hidden.style.display="block";
+          
+          var xhr=new XMLHttpRequest();
+          xhr.onreadystatechange=function(){
+              if(xhr.readyState==4&&xhr.status==200){
+                  var res=xhr.responseText;
+                  if(res.length>0){
+                     var arr=JSON.parse(res);
+                     console.log(arr[0]);
+                     h_uid.innerHTML=arr[0].uid;
+                     uname.innerHTML=arr[0].uname;
+                     upwd.innerHTML=arr[0].upwd;
+                     email.innerHTML=arr[0].email;
+                     phone.innerHTML=arr[0].phone;
+                     if(arr[0].avatar==null||arr[0].avatar==''){
+                        avatar.innerHTML="无头像";
+                     }else if(arr[0].avatar!=null){
+                        avatar.innerHTML=arr[0].avatar;
+                     }
+                     if(arr[0].userName==null||arr[0].userName==''){
+                        userName.innerHTML="无真名";
+                     }else if(arr[0].userName!=null){
+                        userName.innerHTML=arr[0].userName;
+                     }
+                     
+                     if(arr[0].gender==1){
+                       gender.innerHTML="男";
+                     }else if(arr[0].gender==0){
+                       gender.innerHTML='女';
+                     }else if(arr[0].gender==null){
+                        gender.innerHTML="不详";
+                     }
+                  }else{
+                     alert("查看失败");
+                  }
+              }
+          }
+          xhr.open("get","/user/update?uid="+uid,true);
+          xhr.send(null);
+      }
+      function hid(){
+          hidden.style.display="none";
+      }
+      // 分页  页码以及数量 page  count
+      //每页开始查询的值  （页码-1）*count
+      /*
+      var pno=0;
+      var count=2;
+      var j=0;
+      function firstpage(){
+          j++;
+          
+          var startPage=(pno-1)*count;
+          var xhr=new XMLHttpRequest();
+          xhr.onreadystatechange=function(){
+            if(xhr.readyState==4&&xhr.status==200){
+               var res=xhr.responseText;
+               if(res.length>0){
+                      var arr=JSON.parse(res);
+                      var cont="";
+                      for(var i=0;i<arr.length;i++){
+                        var gender;
+                        if(arr[i].gender==1){
+                            gender="男";
+                        }else if(arr[i].gender==0){
+                            gender="女";
+                        }else{
+                            gender="不详";
+                        }
+                        cont+="<tr>";
+                        cont+="<td>"+arr[i].uid+"</td>"+"<td>"+arr[i].uname+"</td>"+"<td>"+arr[i].upwd+"<td>"+arr[i].email+"</td>"+"<td>"+arr[i].phone+"</td>"+"<td>"+arr[i].avatar+"</td>"+"<td>"+arr[i].userName+"</td>"+"<td>"+gender+"</td>";
+                        cont+="<td>"+"<a href='javascript:show("+arr[i].uid+")'>详情</a>&nbsp;&nbsp;&nbsp;"+"<a href='javascript:deleteUser("+arr[i].uid+")'>删除</a>&nbsp;&nbsp;&nbsp;"+"<a href='./user_update.html?uid="+arr[i].uid+"'>更新</a>"+"</td>";
+                        cont+="</tr>";
+                      }
+                    }else{
+                        alert("获取信息失败...");
+                    }
+                  info.innerHTML=cont; 
+            }
+            num.innerHTML=j;
+          }
+          xhr.open("post","/user/paging",true);
+          xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+          var data="pno="+pno+"&count="+count;
+          xhr.send(data);
+      }
+      */
+     </script>
+  </body>
+</html>
