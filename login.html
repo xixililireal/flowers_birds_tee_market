@@ -1,0 +1,124 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>登录页面</title>
+    <style>
+        body{
+          background-image: url("./images/bg_2.jpg");
+          background-repeat: no-repeat;
+          background-size: 80%;
+          background-position: center -100%;
+          background-color:#fefcfd ;
+          display:flex;
+          flex-direction:column;
+          justify-content:space-around; 
+          align-items:center;
+        }
+        header{flex:0 0 10%;border:1px solid #f00;}
+        header .logo>img{
+          height:150px;
+          
+        }
+        /*border:1px solid red;*/
+      /*  div{width:400px;height:60px;line-height:10px;}
+        .jg{width:400px;height:100px;}
+        #a1{padding-left:70px;}
+        #uname,#upwd,#checkname,#checkUpwd{width:200px;height:35px;font-size:18px;margin-left:40px;}
+        #login{width:265px;font-size:18px}*/
+    </style>
+  </head>
+  <body>
+<!--header--start    -->
+    <header>
+      <div class="logo"> 
+        <img src="./images/logo-index.png" alt="">
+        <span>欢迎登录</span>
+       </div> 
+    </header>
+<!--header--end    -->
+<!--content--start      -->
+    <div id="content">
+      <div class="tip">
+          <h4>登录花鸟文茶市场<a href="./register.html" id="a1">新用户注册</a><hr></h4>
+      </div>
+      <div class="jg">
+          <input type="text" id="uname" placeholder="请输入您的用户名"  onblur="checkUname()"  onfocus="" title="请填写此字段"><br><br>
+         <span id="checkname"></span>
+      </div>
+      <div class="jg">
+          <input type="password" id="upwd" placeholder="请输入您的密码" onblur="upwd_blur()" title="请填写此字段"><br><br><span id="checkUpwd"></span>
+      </div>
+      <div>
+          <input type="checkbox" name="box" id="autoLogin">自动登录<a href="#">忘记密码?</a>
+      </div>
+      <div>
+          <input type="button" value="登录" onclick="userLogin()" id="login">
+      </div>
+    </div>
+<!--content--end  -->
+    <script>
+        var islogin=false;
+        // 检测用户名
+        function checkUname(){
+            var val_name=uname.value;
+            if(val_name==''){
+                checkname.innerHTML="用户名不能为空";
+                checkname.style.color="red";
+                islogin=false;
+                return;
+            }
+            var xhr=new XMLHttpRequest();
+            xhr.onreadystatechange=function(){
+                if(xhr.readyState==4&&xhr.status==200){
+                    var res=xhr.responseText;
+                    if(res=="1"){
+                        checkname.innerHTML="用户名正确";
+                        checkname.style.color="green";
+                        islogin=true;
+                    }else if(res=="0"){
+                        checkname.innerHTML="用户名不存在";
+                        checkname.style.color="red";
+                        uname.focus();
+                        islogin=false;
+                    }
+                }
+            }
+            xhr.open("get","/user/loginUname?uname="+val_name,true);
+            xhr.send(null);
+        }
+        // 检测密码
+        function upwd_blur(){
+            var val_pwd=upwd.value;
+            if(val_pwd==''){
+                  checkUpwd.innerHTML="密码不能为空";
+                  checkUpwd.style.color="red";
+                  islogin=false;
+                  return;
+            }
+        }
+        // 检测登录信息
+        function userLogin(){
+            if(islogin==true){
+                var xhr=new XMLHttpRequest();
+                xhr.onreadystatechange=function(){
+                    if(xhr.readyState==4&&xhr.status==200){
+                        var res =xhr.responseText;
+                        if(res=="1"){
+                            alert("登录成功");
+                        }else if(res=="0"){
+                            alert("用户名或密码不正确");
+                        }
+                    }
+                }
+                xhr.open("post","/user/login",true);
+                xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+                var formdata="uname="+uname.value+"&upwd="+upwd.value;
+                xhr.send(formdata);
+            }else{
+                alert("用户名或密码错误！");
+            }
+        }
+    </script>
+  </body>
+</html>
