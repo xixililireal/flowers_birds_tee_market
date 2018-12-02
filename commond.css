@@ -1,0 +1,41 @@
+body{
+  margin:0;
+  padding:0;
+  font-family: "Helvetica Neue","Micosoft Yahei", Helvetica, Arial, sans-serif;
+}
+.my-small{
+  font-size:0.8rem;
+}
+.my-bcolor{
+  border-color: #cccccc;
+}
+.my-text{
+  color:#555;
+}
+.my-fcolor{
+  color:#aaa;
+}
+.my-color{
+  color:#f9a623 !important;
+}
+@media (min-width: 576px) {
+  .my_header{
+    width: 100%;
+    height:1.5rem;
+  }
+  .my_footer{
+    width: 100%;
+    height: 15rem;
+  }
+}
+
+@media (min-width: 992px) {
+  .my_header{
+    width: 100%;
+    height:10rem;
+  }
+  .my_footer{
+    width: 100%;
+    height: 10rem;
+  }
+}
