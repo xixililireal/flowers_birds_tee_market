@@ -1,0 +1,102 @@
+body{
+  background: #f5f5f5;
+  border:1px solid #ccc;
+}
+body>div{
+  height:2rem;
+  background: #f5f5f5;
+  border:1px solid #cccccc;
+}
+header .top-div{
+  position:absolute;
+  top:0;
+}
+header .list-div{
+  position:absolute;
+  top:0;
+  left:50rem;
+}
+header>div:first-child{
+  margin-top: -10px;
+}
+header ul.my-ul li b{
+  color:#ccc;
+  margin-left:0.5rem;
+  margin-right:0.5rem;
+}
+header ul.my-ul li{
+  width:5rem;
+  position:relative;
+  display: block;
+  text-align:center;
+  /*margin-left:0.5rem;*/
+  /*margin-right:0.3rem;*/
+  background:url(../images/top.gif) no-repeat 100% -26px;
+}
+header ul.my-ul li>a>i{
+  font-style: normal;
+  display: inline-block;
+  border-width: 4px;
+  border-color: #333 transparent transparent transparent;
+  border-style: solid dashed dashed dashed;
+  margin-top:0.5rem;
+  margin-left:0.1rem;
+
+  /*position:absolute;*/
+  /*top:10px;*/
+  /*left:68px;*/
+  transition: .2s ease-in;
+}
+header ul.my-ul li>.menu-bd{
+  display:none;
+  margin-left:-2px;
+  /*float: left;*/
+  position: absolute;
+}
+header ul.my-ul li>.menu-bd>ul>li{
+  border:none;
+  background: 0;
+  text-align:left;
+}
+header ul.my-ul .link>.menu-bd>ul>li{
+  background:url("../images/hbg.png") no-repeat 5px -530px;
+}
+header ul.my-ul .link>.menu-bd>ul>li>a{
+  margin-left:.8rem;
+}
+header ul.my-ul li.top-card{
+  width: 9rem;
+}
+header ul.my-ul li a>s{
+  /*background: url(../images/top.gif) no-repeat scroll 0px 0px;*/
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  background: url(../images/top.gif) no-repeat scroll 1px 4px;
+  margin-right:.1rem;
+}
+header ul.my-ul li.link{
+  background:url("../images/hbg.png") no-repeat -119px 6px;
+}
+header ul.my-ul li:hover{
+  background: #fff;
+  border:1px solid #ccc;
+  border-bottom: none;
+}
+header ul.my-ul li.bg-color:hover{
+  border:none;
+  background:url(../images/top.gif) no-repeat 100% -26px;
+}
+header a:hover{
+  background:0;
+  color:#f9a623;
+}
+header ul.my-ul li:hover .menu-bd{
+  display: block;
+  background: #fff;
+  border:1px solid #ccc;
+  border-top:none;
+}
+header ul.my-ul li:hover i{
+  transform:translate(0,-5px) rotate(180deg);
+}
