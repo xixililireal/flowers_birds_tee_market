@@ -1,0 +1,57 @@
+footer{
+	width:100%;
+	flex:0 0 20%;
+	background: #fff;
+	margin-top:3%;
+		
+}
+footer>.footer-div{
+	width:80%;
+/*	border:1px solid #f00;*/
+	margin:0 auto;
+	display: flex;
+	flex-flow:wrap;
+	justify-content: space-around;
+	align-items:flex-start;
+}
+footer .footer-div>.footer-logo{
+	flex:0 0 20%;
+/*	border:1px solid #f00;*/
+	text-align:center;
+}
+footer .footer-div>.footer-caption{
+	flex:0 0 60%;
+/*	border:1px solid #f00;*/
+	display:flex;
+	justify-content:flex-start;
+	align-items:flex-start;
+}
+footer .footer-div>.footer-record{
+	flex:0 0 50%;
+	margin-top:10px;
+/*	border:1px solid #f00;*/
+	text-align:center;
+	font:500 12px "微软雅黑";
+}
+footer .footer-div .footer-logo>img{
+	height:90px;
+	margin-left:0px;
+	vertical-align: bottom;
+}
+footer .footer-div .footer-logo>p{
+	font: 400  14px "华文行楷","微软雅黑";
+	color:#ccc;
+}
+footer .footer-div .footer-caption>ul{
+	margin-right:100px;
+}
+footer .footer-div .footer-caption ul>li{
+	margin-top:20px;
+}
+footer .footer-div .footer-caption ul li a{
+	color:#000;
+	font:500 12px "微软雅黑";
+}
+footer .footer-div .footer-caption ul li a a>h3{
+	font:700 14px "微软雅黑";
+}
