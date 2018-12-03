@@ -1,0 +1,11 @@
+footer div.row div.my-ul a:hover{
+  color:#f9a623 !important;
+}
+footer div.row div.my-ul-hover a:hover{
+  color:#555 !important;
+}
+footer div.row div.my-ul-hover li b{
+  color: #555;
+  margin-left: 0.5rem;
+  margin-right:0.5rem;
+}
