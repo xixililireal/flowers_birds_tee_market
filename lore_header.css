@@ -1,0 +1,28 @@
+header{
+/*	flex:0 0 10%;*/
+	width:80%;
+/*	border:1px solid #f00;*/
+	margin:0 auto;
+	margin-top:1rem;
+	display: flex;
+	justify-content:flex-start;
+	align-items:center;
+}
+header>img{
+	height:90px;
+	margin-left:160px;
+	vertical-align: bottom;
+}
+header>b{
+	font-weight:500;
+	color:#000;
+	margin-top:60px;
+	margin-left:20px;
+}
+header>h3{
+	font-size:22px;
+	font-weight:lighter;
+	margin-top:60px;
+	margin-left:10px;
+	display: inline;
+}
