@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>注册页面</title>
+		<link rel="stylesheet" href="../css/lore_header.css" />
+		<link rel="stylesheet" href="../css/register.css" />
+		<link rel="stylesheet" href="../css/lore_footer.css" />
+    <link rel="stylesheet" href="../css/commond.css"/>
+	</head>
+	<body>
+	<script type="text/javascript" src="../js/head.js"></script>
+		<!--header--start-->
+		<header>
+			<img src="../images/logo-index.png" alt="花鸟文茶市场logo" />
+			<b>|</b>
+			<h3>欢迎注册</h3>
+		</header>
+		<!--header--end-->
+		
+		<!--content--start-->
+		<div id="content">
+       		<div class="tips">
+          		<h4>新用户注册<a href="./index-login.html" id="a1">直接登录</a></h4>
+      		</div>
+      		<div class="zc">
+      			<label>用户名：</label>
+                <input type="text" placeholder="请输入您的用户名" id="uname" maxlength="9" onblur="uname_blur()" onfocus="uname_focus()" title="请填写此字段">
+                  <span id="tipsUname">用户名长度为6-9位之间</span>
+      		</div>
+      		
+          <div class="zc">
+      			<label>登录密码：</label>
+                <input type="password" placeholder="请输入您的登录密码" id="upwd" maxlength="16" onblur="upwd_blur()" onfocus="upwd_focus()" title="请填写此字段">
+                <span id="tipsUpwd"></span>
+      		</div>
+      		
+          <div class="zc">
+      			<label>确认密码：</label>
+                <input type="password" placeholder="请确认密码" id="u_pwd" maxlength="16" onblur="pwd_blur()" onfocus="pwd_focus()" title="请填写此字段">
+                <span id="tips_upwd"></span>
+      		</div>
+      		
+          <div class="zc">
+      			<label>邮箱：</label>
+                <input type="email" placeholder="请输入邮箱地址" id="email" title="请填写此字段" onblur="email_blur()" onfocus="email_focus()">
+                <span id="tipsEmail"></span>
+      		</div>
+      		
+          <div class="zc">
+      			<label>手机号：</label>
+                <input type="phone" placeholder="请输入您的手机号" id="phone" maxlength="11" onblur="phone_blur()" onfocus="phone_focus()" title="请填写此字段">
+                <span id="tipsPhone"></span>
+      		</div>
+      		
+          <div class="zc register">
+      			<input type="button" value="提交注册信息" onclick="user_register()" id="reg">
+      		</div>
+		</div>
+		<!--content--end-->
+		
+		<!--footer--start-->
+		<footer>
+      <!--<iframe src="./command-footer.html" class="my_footer" frameborder="0" scrolling="no"></iframe>-->
+			<script type="text/javascript" src="../js/foot.js"></script>
+		</footer>
+		<!--footer--end-->
+    <script src="./js/register.js"></script>
+	</body>
+</html>
