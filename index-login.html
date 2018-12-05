@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>登录页面</title>
+		<link rel="stylesheet" href="../css/lore_header.css" />
+		<link rel="stylesheet" href="../css/login.css" />
+		<link rel="stylesheet" href="../css/lore_footer.css" />
+    <link rel="stylesheet" href="../css/commond.css"/>
+	</head>
+	<body>
+	<script type="text/javascript" src="../js/head.js"></script>
+	<!--header--start-->
+		<header>
+			<img src="../images/logo-index.png" alt="花鸟文茶市场logo" />
+			<b>|</b>
+			<h3>欢迎登录</h3>
+		</header>
+		<!--header--end-->
+		
+		<!--content--start-->
+		<div id="content">
+			<div class="tip">
+          <h4>登录花鸟文茶市场<a href="./index-register-1.html" id="a1">新用户注册</a><hr></h4>
+      </div>
+      <div class="jg">
+          <input type="text" id="uname" placeholder="请输入您的用户名"  onblur="checkUname()"  onfocus="" title="请填写此字段"><br><br>
+         <span id="checkname"></span>
+      </div>
+      <div class="jg">
+          <input type="password" id="upwd" placeholder="请输入您的密码" onblur="upwd_blur()" title="请填写此字段"><br><br><span id="checkUpwd"></span>
+      </div>
+      <div>
+          <input type="checkbox" name="box" id="autoLogin">自动登录
+          <a href="#">忘记密码?</a>
+      </div>
+      <div id="input-btn">
+          <input type="button" value="登录" onclick="userLogin()" id="login">
+      </div>		
+		</div>
+		<!--content--end-->
+		
+		<!--footer--start-->
+		<footer>
+      <!--<iframe src="./command-footer.html" class="my_footer" frameborder="0" scrolling="no"></iframe>-->
+			<script type="text/javascript" src="../js/foot.js"></script>
+		</footer>
+		<!--footer--end-->
+
+   <script src="./js/login.js"></script>
+	</body>
+</html>
